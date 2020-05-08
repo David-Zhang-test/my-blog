@@ -4,4 +4,4 @@ title: 关于
 permalink: /about/
 ---
 
-这是一个关于页面，请编辑about.md以介绍你的博客。
+##这是我的个人博客。如果你想了解更多有关我的内容，可以访问[我的个人网站](https://david-zhang-test.github.io)
