@@ -12,40 +12,7 @@
     {% if site.valine_comment.enable and page.comments == true %}
       <div id="comments"></div>
     {% endif %}
-
-
-<div id="comments11"></div>
-    Leancloud 操作库:
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    Valine 的核心代码库:
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <script>
-         new Valine({
-            av: AV,
-            el: '#comments11',
-            app_id: '{{ site.valine_comment.leancloud_appid }}',
-            app_key: '{{ site.valine_comment.leancloud_appkey }}',
-            placeholder:'{{ site.valine_comment.placeholder }}'
-        })
-    </script>
-
-
-<script>
-    new Valine({
-        av: AV,
-        el: '#comments',
-        app_id: '{{ site.valine_comment.leancloud_appid }}',
-        app_key: '{{ site.valine_comment.leancloud_appkey }}',
-        placeholder:'{{ site.valine_comment.placeholder }}'
-    });
-</script>
-
-
-
     {% include scripts.html %}
-
-
-
   </body>
 
   <div class="wrapper-footer-mobile">
