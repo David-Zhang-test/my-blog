@@ -8,17 +8,11 @@
       {{ content }}
     </div>
 
-    {% include analytics.html %}
+
     {% if site.valine_comment.enable and page.comments == true %}
       <div id="comments"></div>
     {% endif %}
     {% include scripts.html %}
   </body>
-
-  <div class="wrapper-footer-mobile">
-    <footer class="footer">
-      {% include footer.html %}
-    </footer>
-
 
 </html>
