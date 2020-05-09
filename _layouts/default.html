@@ -8,7 +8,7 @@
       {{ content }}
     </div>
 
-
+    {% include analytics.html %}
     {% if site.valine_comment.enable and page.comments == true %}
       <div id="comments"></div>
     {% endif %}
