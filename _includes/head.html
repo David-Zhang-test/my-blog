@@ -12,6 +12,11 @@
   <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
   <link rel="shortcut icon" href="{{ site.favicon }}">
   <script src="https://kit.fontawesome.com/56f7faf3f4.js"></script>
+  <!-- Valine Comment -->
+  {% if site.valine_comment.enable and page.comments == true %}
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  {% endif %}
 
 
   <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->

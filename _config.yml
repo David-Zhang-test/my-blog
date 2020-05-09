@@ -69,6 +69,14 @@ url:
 # 那么就写成 "/repository-name"
 baseurl: /my-blog
 
+
+valine_comment: 
+  enable: true
+  leancloud_appid: AnlQLDmNdVeGBc104glGHnty-gzGzoHsz
+  leancloud_appkey: 0xWfmArRQhGCa6CpoTp6aMU3
+  placeholder: Just go go
+
+  
 valine:
   enable: true
   appid:  AnlQLDmNdVeGBc104glGHnty-gzGzoHsz # your leancloud app id
