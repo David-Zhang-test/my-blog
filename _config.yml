@@ -36,7 +36,7 @@ paginate: 8
 
 # 你的社交网络链接，它们会作为图标出现在你的网站页脚中，可选填写
 footer-links: 
-  weibo: frommidworld #请输入你的微博个性域名 https://www.weibo.com/<thispart>
+  weibo: #frommidworld #请输入你的微博个性域名 https://www.weibo.com/<thispart>
   behance: # https://www.behance.net/<>
   dribbble: # https://dribbble.com/<>
   email: david_zhang1211@qq.com
@@ -46,7 +46,7 @@ footer-links:
   instagram: #https://instagram.com/<>
   linkedin: #https://www.linkedin.com/in/<>
   pinterest: #https://www.pinterest.com/<>
-  rss: #随便填点啥RSS就能用了
+  rss: david #随便填点啥RSS就能用了
   stackoverflow: # http://stackoverflow.com/<>
   tumblr: # https://<username>.tumblr.com
   twitter: # https://www.twitter.com/<your_twitter_username> 
