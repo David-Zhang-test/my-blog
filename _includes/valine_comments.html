@@ -1,8 +1,6 @@
 
 <h4 align="left">「游客及非Github用户留言」：</h4>    
 <div id="comments"></div>
-    
-
 
 <script>
     new Valine({
@@ -10,6 +8,9 @@
         el: '#comments',
         app_id: '{{ site.valine_comment.leancloud_appid }}',
         app_key: '{{ site.valine_comment.leancloud_appkey }}',
-        placeholder:'{{ site.valine_comment.placeholder }}'
+        placeholder:'{{ site.valine_comment.placeholder }}',
+        recordIP: 'true',
+        enableQQ: 'true',
+        })
     });
 </script>
