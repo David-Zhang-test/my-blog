@@ -19,3 +19,13 @@
         })
     </script>
 
+
+<script>
+    new Valine({
+        av: AV,
+        el: '#comments',
+        app_id: '{{ site.valine_comment.leancloud_appid }}',
+        app_key: '{{ site.valine_comment.leancloud_appkey }}',
+        placeholder:'{{ site.valine_comment.placeholder }}'
+    });
+</script>
