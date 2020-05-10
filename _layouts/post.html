@@ -25,7 +25,10 @@ layout: default
     {{ content }}
   </div>
 
-  {% include disqus.html %}
+
+  {% if site.valine.enable %}
+    {% include valine_comments.html %}
+  {% endif %}
 </article>
 
 <div class="pagination">
