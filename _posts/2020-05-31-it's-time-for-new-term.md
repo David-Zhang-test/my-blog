@@ -32,4 +32,4 @@ comments: true
 
 
 
-![](C:\Users\MG\Documents\GitHub\my-blog\images\2020-05-31-it's-time-for-new-term.png)
+![png](C:\Users\MG\Documents\GitHub\my-blog\images\2020-05-31-it's-time-for-new-term.png)
