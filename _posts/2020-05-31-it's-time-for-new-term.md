@@ -23,13 +23,3 @@ comments: true
 不管怎么说，开学了，我们又要见面了。今天我就放鸽子了。
 
 ![img](https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3515382884,2649297479&fm=26&gp=0.jpg)
-
-
-
-
-
-
-
-
-
-![png](C:\Users\MG\Documents\GitHub\my-blog\images\2020-05-31-it's-time-for-new-term.png)
