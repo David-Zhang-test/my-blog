@@ -116,11 +116,11 @@ comments: true
 
 
 
-在这里我衷心祝愿我们学校的学生民主议事会能真正地长久地存在，真正成为章程中“代表广大同学权益和意愿的学生组织”吧。我们在一起努力，从不despair。
+在这里我衷心祝愿我们学校的学生民主议事会能真正地长久地存在，真正成为章程中“代表广大同学权益和意愿的学生组织”吧。我们在一起努力，永不despair。
 
 
 
-from Reform Committee of Students' Democracy Conference
+**from Reform Committee of Students' Democracy Conference**
 
 
 
