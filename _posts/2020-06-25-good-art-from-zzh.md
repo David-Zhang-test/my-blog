@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 什么是好的艺术(转载自ZZH)
-date: 2020-06-07
+date: 2020-06-25
 Author: ZZH
 categories: reprint
 tags: [thoughts,reprint]
