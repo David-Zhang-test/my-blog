@@ -12,9 +12,7 @@ comments: true
 
 在国内，由于某些众所周知的原因，导致原先的在美国的github服务器访问出现了很多问题。
 
-
-
-![123](C:\Users\MG\Desktop\123.png)
+![img](../images/2020-08-13-1.png)
 
 
 
