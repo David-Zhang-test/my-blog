@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>如何用python的tkinter实现日程管理？（纯娱乐） – Mr.Zhang的博客 – 闲来聊天</title>
+
+      <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+  <!-- 
+<script>
+  window.WebFontConfig = {
+      custom: {
+          families: ['Spoqa Han Sans:100,300,400,700'],
+          urls: ['https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css']
+      },
+      timeout: 60000
+  };
+  (function(d) {
+      var wf = d.createElement('script'), s = d.scripts[0];
+      wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+      s.parentNode.insertBefore(wf, s);
+  })(document);
+</script>
+-->
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" type="text/css" href="/my-blog/style.css" />
+  <link rel="stylesheet" href="../syntax.css">
+  <link rel="alternate" type="application/rss+xml" title="Mr.Zhang的博客 - 闲来聊天" href="/my-blog/feed.xml" />
+  <link rel="shortcut icon" href="https://davidzhangtest.gitee.io/my-blog/images/logo1.png">
+  <script src="https://kit.fontawesome.com/56f7faf3f4.js"></script>
+  <!-- Valine Comment -->
+  
+  <script src="../av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+
+
+  <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+
+</head>
+  <body>
+    <div class="wrapper-sidebar">
+  <header class="sidebar clearfix">
+    <div class="site-info">
+      
+        <a href="/my-blog/" class="site-avatar"><img src="https://davidzhangtest.gitee.io/my-blog/images/logo2.png" /></a>
+       
+      <h1 class="site-name"><a href="/my-blog/">Mr.Zhang的博客</a></h1>
+      <p class="site-description">闲来聊天</p>
+    </div>
+  </header>
+
+  <div class="navlist">
+    <nav>
+      
+      
+      <a href="/my-blog/">首页</a>
+      
+      
+      
+      <a href="/my-blog/about">关于</a>
+      
+      
+      
+      <a href="/my-blog/archive">归档</a>
+      
+      
+      
+      <a href="/my-blog/tags">标签</a>
+      
+      
+    </nav>
+  </div>
+
+  <div class="wrapper-footer-desktop">
+    <footer class="footer">
+      <!-- Refer to https://codepen.io/ruandre/pen/howFi -->
+<ul class="svg-icon">
+
+  
+  
+  
+
+  
+
+  
+  <li><a href="mailto:david_zhang1211@qq.com" class="icon-8 email" title="Email"><svg viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg><!--[if lt IE 9]><em>Email</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+  <li><a href="https://github.com/david-zhang-test" class="icon-13 github" title="GitHub"><svg viewBox="0 0 512 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg><!--[if lt IE 9]><em>GitHub</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><a href="/my-blog/feed.xml" class="icon-21 rss" title="RSS"><svg viewBox="0 0 512 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"/></svg><!--[if lt IE 9]><em>RSS</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+
+  
+
+</ul>
+
+
+
+<p>© 2020 Mr.Zhang All Rights Reserved</p>
+
+    </footer>
+  </div>
+</div>
+
+    <div id="main" role="main" class="wrapper-content">
+      <article class="posts">
+  <h1>如何用python的tkinter实现日程管理？（纯娱乐）</h1>
+
+  <div clsss="meta">
+    <span class="date">
+      2021-01-05
+    </span>
+
+    <ul class="tag">
+      
+      <li>
+        <a href="http://localhost:4000/my-blog/tags#program">
+          program
+        </a>
+      </li>
+      
+      <li>
+        <a href="http://localhost:4000/my-blog/tags#python">
+          python
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p><br /></p>
+
+<h2 id="一项目准备">一、项目准备</h2>
+
+<p><strong>说明！必看！</strong></p>
+
+<p><strong>这篇文章是TechniColor俱乐部高级组的项目教程，是对项目的一个总结也帮助以后的同学学习</strong></p>
+
+<p>如果你不是我们俱乐部的成员但对日程管理感兴趣的话，也可以看这个教程，感谢支持</p>
+
+<p>闲言少叙，我们进入正题：</p>
+
+<p>日程管理是每个人都需要做的事情，不论是用好脑子还是用烂笔头抑或是程序都可以实现。程序的优点在于它很清晰同时也易于进行统计，还可以锻炼下写python的能力，<del>这才是主要目的</del>。</p>
+
+<p>在开始敲代码之前，我们需要先看一下自己需要做什么。为了更好得整理思路，我选择使用思维导图的方式。</p>
+
+<p><br /></p>
+
+<p><img src="../images/2021-01-05-event-management/mindmap.png" alt="img" /></p>
+
+<p><br /></p>
+
+<p><strong>在确定好我们需要做什么之后，就可以着手学习敲代码了！</strong></p>
+
+<h2 id="二必备知识">二、必备知识：</h2>
+
+<h3 id="1如果你只想了解程序逻辑你可以选择跳过这部分知识直接到第二部分">1.<strong>如果你只想了解程序逻辑</strong>，你可以选择跳过这部分知识，直接到第二部分</h3>
+
+<h3 id="2python的安装与卸载">2.python的安装<del>与卸载</del></h3>
+
+<p>请看<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1016959856222624">这篇文章</a></p>
+
+<h3 id="3python的基础知识">3.python的基础知识</h3>
+
+<p>你需要掌握python的基本语法，包括但不限于数据类型，强制类型转换，运算符，变量，字符串，数组，字典，函数，文件读取，选择结构，循环结构等等</p>
+
+<p>如果你都不了解，<del>发现自己是个废物，建议马上关掉这篇文章</del>建议马上学习一下</p>
+
+<p>推荐使用的学习网站包括但不限于</p>
+
+<p><a href="https://www.runoob.com/python/python-tutorial.html">菜鸟教程</a>，<a href="https://www.liaoxuefeng.com/wiki/1016959663602400">廖雪峰python教程</a>，<a href="https://mofanpy.com/tutorials/python-basic/basic/">莫烦python基础教程</a>等等</p>
+
+<p>互联网时代学习编程很大程度上需要自学，丰富的在线资源为此提供了重要的支持。尽管如此，有老师教学大多数时候都是求之不得的事情，请同学们珍惜你的老师<del>和他们的头发</del>。</p>
+
+<h3 id="4tkinter的基本知识">4.tkinter的基本知识</h3>
+
+<p>这是python自带的一个图形化（GUI）库，你可以用它完成对用户的交互，你需要对它<strong>有一定的</strong>了解。</p>
+
+<p><strong>你可以</strong>通过<a href="https://www.runoob.com/python/python-gui-tkinter.html">这个网站</a>学习它的基本用法。</p>
+
+<p><strong>你也可以</strong>通过<a href="https://www.bilibili.com/video/BV1jW411Y7dL">这个视频</a>来了解如何使用tkinter。</p>
+
+<h2 id="三开始">三、开始</h2>
+
+<p><strong>你可以在<a href="https://github.com/David-Zhang-test/program_shareing">github</a>上找到本篇教程的全部代码，编号为3-小标题。例如“1.初始化一个tkinter窗口”的代码就在文件3-1中，如果你想白嫖代码的话，可以直接找到final文件夹，下载到本地即可。</strong></p>
+
+<p><strong>请一定注意查看注释</strong></p>
+
+<h3 id="1初始化一个tkinter窗口">1.初始化一个tkinter窗口</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#导入库
+</span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="n">tk</span>
+<span class="c1">#创建一个window实例
+</span><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">window</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'日程管理'</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">"400x300"</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>这些都是最基本的语法了。</p>
+
+<p>先导入tkinter库，然后创建一个window实例。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="../images/2021-01-05-event-management/3-1.png" alt="img" /></p>
+
+<h3 id="2按功能分为两个页面">2.按功能分为两个页面</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#导入库
+</span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="n">tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="c1">#创建一个window实例
+</span><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">window</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'日程管理'</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">"400x300"</span><span class="p">)</span>
+<span class="c1">#分页
+</span><span class="n">nb</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Notebook</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">260</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tab1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab1</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s">"显示待办"</span><span class="p">)</span>
+<span class="n">tab2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"管理待办"</span><span class="p">)</span>
+
+<span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>由于前面思维导图里把主要任务分为了显示和管理，所以这里把两个页面分开。</p>
+
+<p>先导入ttk库，然后创建两个Notebook实例，这样就把两个页面分开了。</p>
+
+<p>这里面用到了tkinter三种包装方式pack, grid, place中的grid，也是最常用的一种。有关这三种包装方式的教程可以查看<a href="https://blog.csdn.net/weixin_43118073/article/details/100077067?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.not_use_machine_learn_pai&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.not_use_machine_learn_pai">这个网站</a></p>
+
+<p>Frame也是tkinter的组件之一，也是一个布置组件的组件（老套娃了）。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="../images/2021-01-05-event-management/3-2.png" alt="img" /></p>
+
+<h3 id="3插入添加待办的组件">3.插入添加待办的组件</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"管理待办"</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span>
+
+<span class="c1">#待办管理页
+</span>
+<span class="c1">#待办名称输入框
+</span><span class="n">l1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"待办名称："</span><span class="p">)</span>
+<span class="n">l1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span><span class="c1">#可以用get()方法获取输入的内容
+</span><span class="n">e1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#详细信息输入框
+</span><span class="n">l2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"详细信息："</span><span class="p">)</span>
+<span class="n">l2</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">e2</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#ddl输入框
+</span><span class="n">l6</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"ddl:"</span><span class="p">)</span>
+<span class="n">l6</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">e3</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">e3</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#按钮，可以绑定功能
+</span><span class="n">b1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"添加待办"</span><span class="p">)</span><span class="c1">#未绑定的按钮
+</span><span class="n">b1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">columnspan</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>代码越来越长，我就只显示增加的部分和前后两行原有代码了，复制时请把前后原有内容删除。</strong></p>
+
+<p><strong>我标注原有内容的地方就是新增内容的上一行代码，新代码直接接在下方就可以。</strong></p>
+
+<p>Label、Entry和Button都是tkinter的组件。在Label上可以显示文字，起到提示功能。Entry是获取用户输入文字的组件，可以用get()方法获取输入内容。</p>
+
+<p>按钮是一个可以绑定功能的组件，可以自己写一个函数，当点击按钮时执行。这里由于还没有设计函数功能，所以按钮还没有进行绑定。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="../images/2021-01-05-event-management/3-3.png" alt="img" /></p>
+
+<h3 id="4设计数据表">4.设计数据表</h3>
+
+<p>在前面考虑数据表的格式时用了思维导图的方式来总结，这个数据表应该包括</p>
+
+<p><strong>唯一确定编号，</strong></p>
+
+<p><strong>日程概要，</strong></p>
+
+<p><strong>日程细节，</strong></p>
+
+<p><strong>ddl，</strong></p>
+
+<p><strong>插入时间，</strong></p>
+
+<p><strong>是否显示在表格中</strong></p>
+
+<p>注：表格的绘制会在后面第6点会讲到，表格是我用来显示待办的地方。</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">8bed</span><span class="se">\u</span><span class="s2">6587"</span><span class="p">,</span><span class="w"> </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">77ed</span><span class="se">\u</span><span class="s2">8bc4"</span><span class="p">,</span><span class="w"> </span><span class="nl">"ddl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-05"</span><span class="p">,</span><span class="w"> </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-05"</span><span class="p">},</span><span class="w"> </span><span class="nl">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">89c2</span><span class="se">\u</span><span class="s2">6469</span><span class="se">\u</span><span class="s2">5361</span><span class="se">\u</span><span class="s2">6362</span><span class="se">\u</span><span class="s2">9009</span><span class="se">\u</span><span class="s2">7968"</span><span class="p">,</span><span class="w"> </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">897f</span><span class="se">\u</span><span class="s2">697c</span><span class="se">\u</span><span class="s2">5927</span><span class="se">\u</span><span class="s2">5385</span><span class="se">\u</span><span class="s2">6559</span><span class="se">\u</span><span class="s2">5bfc</span><span class="se">\u</span><span class="s2">5904"</span><span class="p">,</span><span class="w"> </span><span class="nl">"ddl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-06"</span><span class="p">,</span><span class="w"> </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-06"</span><span class="p">},</span><span class="w"> </span><span class="nl">"2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">6570</span><span class="se">\u</span><span class="s2">5b66</span><span class="se">\u</span><span class="s2">5c0f</span><span class="se">\u</span><span class="s2">7ec4</span><span class="se">\u</span><span class="s2">4efb</span><span class="se">\u</span><span class="s2">52a1"</span><span class="p">,</span><span class="w"> </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\u</span><span class="s2">7ed8</span><span class="se">\u</span><span class="s2">5236</span><span class="se">\u</span><span class="s2">5317</span><span class="se">\u</span><span class="s2">4eac</span><span class="se">\u</span><span class="s2">5e02</span><span class="se">\u</span><span class="s2">5546</span><span class="se">\u</span><span class="s2">573a</span><span class="se">\u</span><span class="s2">56fe</span><span class="se">\u</span><span class="s2">5c42"</span><span class="p">,</span><span class="w"> </span><span class="nl">"ddl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-31"</span><span class="p">,</span><span class="w"> </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-06"</span><span class="p">}}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>这是一个字典，每一个关键字都对应一个值，简称为键值对。虽然格式<strong>比较简单</strong>，但所需功能都很完整。</p>
+
+<ol>
+  <li>数据中“0”，“1”，“2”关键字就是唯一确定的编号。我习惯从0开始进行编号，但表格是显示给大多数人的，<strong>正常</strong>人都习惯从1开始编号。所以在显示编号时会给他们加1。</li>
+  <li>数据中的“name”关键字就是待办名称，可以说是日程概要。可以发现，“name”的值不是中文而是个含u的字符串，这是unicode编码，把中文字符转化为计算机通用的字符。</li>
+  <li>数据中“details”关键字就是日程细节。</li>
+  <li>“ddl”就是<del>经常会咕的东西</del>截止日期。</li>
+  <li>“state”关键字是控制是否显示在表格中的。这个与删除功能相联系，后文还会再讲。</li>
+  <li>“time”关键字是插入时间，这个是系统自动生成的，为了方面日后的统计工作。</li>
+</ol>
+
+<h3 id="5数据的存储和读取">5.数据的存储和读取</h3>
+
+<p>由于我使用的是json格式，json是一个python的库，需要在最开始的地方引入进来</p>
+
+<p>同时在存储数据时需要系统自动存入插入时间，所以需要导入time库</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#新增内容
+</span><span class="kn">import</span> <span class="nn">json</span> <span class="c1">#导入json库
+</span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">tab2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"管理待办"</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span>
+<span class="c1">#载入json数据
+</span><span class="k">def</span> <span class="nf">read_data</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">data</span> <span class="c1">#声明全局变量
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data.json"</span><span class="p">,</span><span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="c1">#打开本地文件
+</span>        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">read_data</span><span class="p">()</span>
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">e3</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">e3</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span>
+<span class="c1">#存储数据
+</span><span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+    <span class="n">datas</span> <span class="o">=</span><span class="p">{}</span>
+    <span class="n">datas</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">e1</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">datas</span><span class="p">[</span><span class="s">"details"</span><span class="p">]</span> <span class="o">=</span> <span class="n">e2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">datas</span><span class="p">[</span><span class="s">"ddl"</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">datas</span><span class="p">[</span><span class="s">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">datas</span><span class="p">[</span><span class="s">"time"</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">,</span><span class="n">time</span><span class="p">.</span><span class="n">gmtime</span><span class="p">())</span>
+
+    <span class="n">i</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    
+
+    
+    <span class="n">data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">datas</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data.json"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="c1">#打开本地文件
+</span>        <span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="c1">#更改内容
+#把get_data功能绑定到b1按钮上
+</span><span class="n">b1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"添加待办"</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">get_data</span><span class="p">)</span> <span class="c1">#新增了command属性
+</span><span class="n">b1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">columnspan</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+
+</code></pre></div></div>
+
+<p>这段内容部分涉及了json的存取，你可以通过访问<a href="https://www.jb51.net/article/158301.htm">这个网站</a>来了解如何存取json。</p>
+
+<p>在内容中一处使用了global关键字，这是声明一个变量的全局性。变量的作用范围是有区别的，分为全局变量和局部变量。全局变量可以在程序的任何位置访问，而局部变量只能在一定的范围内使用。</p>
+
+<p>button组件可以绑定功能，就是实例中的command属性。但这种方法只能实现<strong>不需要实参</strong>的函数的调用。若需要传入参数的话需要使用lambda语法。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p>如果数据正常的话不会和上一节的运行结果有任何区别，所以这里就不放图了。如果你不放心是否一切正常的话可以在window.mainloop()前加上</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#新增内容
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>如果你输出的结果是</p>
+
+<pre><code class="language-txt">{'0': {'name': '语文', 'details': '短评', 'ddl': '2021-01-05', 'state': True, 'time': '2021-01-05'}, '1': {'name': '观摩卡换选票', 'details': '西楼大厅教导处', 'ddl': '2021-01-06', 'state': True, 'time': '2021-01-06'}, '2': {'name': '数学小组任务', 'details': '绘制北京市商场图层', 'ddl': '2021-01-31', 'state': True, 'time': '2021-01-06'}, '3': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '4': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '5': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '6': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '7': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '8': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '9': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '10': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '11': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '12': {'name': '', 'details': '', 'ddl': '', 'state': True, 'time': '2021-01-06'}, '13': {'name': '数学作业', 'details': 'zjq钓鱼', 'ddl': '2021-01-07', 'state': True, 'time': '2021-01-06'}} 
+</code></pre>
+
+<p>的话，说明一切正常。</p>
+
+<p>测试完后一定记得删除这句话（指print）！</p>
+
+<h3 id="6数据显示treeview表格的插入">6.数据显示——treeview表格的插入</h3>
+
+<p>这一部分虽然看起来比较复杂，但都是由基本的语法构成的，你可以查看<a href="https://blog.csdn.net/sinat_27382047/article/details/80161637">这篇博客</a>。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="k">def</span> <span class="nf">read_data</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">data</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data.json"</span><span class="p">,</span><span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">read_data</span><span class="p">()</span>
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span>
+<span class="n">scrollBar</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="n">tab1</span><span class="p">)</span> <span class="c1">#初始化一个滚动条
+</span>
+<span class="c1">#初始化一个treeview表格
+</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span><span class="s">"row"</span><span class="p">,</span> <span class="s">"data"</span><span class="p">,</span> <span class="s">"ddl"</span><span class="p">,</span><span class="s">"time"</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Treeview</span><span class="p">(</span><span class="n">tab1</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="s">"headings"</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">,</span> <span class="n">yscrollcommand</span><span class="o">=</span><span class="n">scrollBar</span><span class="p">.</span><span class="nb">set</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">column</span><span class="p">(</span><span class="s">"row"</span><span class="p">,</span> <span class="n">anchor</span> <span class="o">=</span> <span class="s">"center"</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">column</span><span class="p">(</span><span class="s">"data"</span><span class="p">,</span> <span class="n">anchor</span> <span class="o">=</span> <span class="s">"center"</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">column</span><span class="p">(</span><span class="s">"ddl"</span><span class="p">,</span> <span class="n">anchor</span> <span class="o">=</span> <span class="s">"center"</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">column</span><span class="p">(</span><span class="s">"time"</span><span class="p">,</span> <span class="n">anchor</span> <span class="o">=</span> <span class="s">"center"</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">heading</span><span class="p">(</span><span class="s">"row"</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"编号"</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">heading</span><span class="p">(</span><span class="s">"data"</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"待办事项"</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">heading</span><span class="p">(</span><span class="s">"ddl"</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"ddl"</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">heading</span><span class="p">(</span><span class="s">"time"</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"插入时间"</span><span class="p">)</span>
+
+
+<span class="n">scrollBar</span><span class="p">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">tree</span><span class="p">.</span><span class="n">yview</span><span class="p">)</span> <span class="c1">#把滚动条绑定到表格
+</span><span class="n">scrollBar</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">tk</span><span class="p">.</span><span class="n">RIGHT</span><span class="p">,</span><span class="n">fill</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span> <span class="c1">#把滚动条显示到窗口中
+</span>    
+<span class="c1">#给treeview表格添加数据
+</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">data1</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span> <span class="c1">#这是一个遍历
+</span>    <span class="c1">#从data这个数据字典中取数据
+</span>    <span class="n">name1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data1</span><span class="p">][</span><span class="s">"name"</span><span class="p">]</span>
+    <span class="n">ddl1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data1</span><span class="p">][</span><span class="s">"ddl"</span><span class="p">]</span>
+    <span class="n">state1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data1</span><span class="p">][</span><span class="s">"state"</span><span class="p">]</span> <span class="c1">#或许该数据的状态，是否显示在表格中，删除数据时的功能
+</span>    <span class="n">time1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data1</span><span class="p">][</span><span class="s">"time"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">state1</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span> <span class="c1">#判断是否应该显示在表格中，是删除数据时的功能，先放在这里
+</span>        <span class="n">tree</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">""</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">name1</span><span class="p">,</span><span class="n">ddl1</span><span class="p">,</span><span class="n">time1</span><span class="p">))</span>
+    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">pack</span><span class="p">()</span>
+<span class="o">---</span>
+<span class="c1">#原有内容
+#待办管理页
+</span><span class="n">l1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"待办名称："</span><span class="p">)</span>
+<span class="n">l1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>为了把存入数据的待办显示出来，我选择了使用ttk的treeview表格来实现，这个表格可以清晰地展示一个待办的各种信息。</p>
+
+<p>不过因为设计原因，treeview只能在一页内显示十条数据，如果多于十条的话就无法显示。所以这里加入了一个滚动条来滚动数据，这样就能显示更多数据了。</p>
+
+<p>对于程序的说明已经非常细致地写在了注释里，请仔细查看，或许可以帮助理解。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="..\images\2021-01-05-event-management\3-6.png" alt="img" /></p>
+
+<h3 id="7treeview表格的完善显示详细信息">7.treeview表格的完善，显示详细信息</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">tree</span><span class="p">.</span><span class="n">pack</span><span class="p">()</span>
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span><span class="k">def</span> <span class="nf">treeviewClick</span><span class="p">(</span><span class="n">event</span><span class="p">):</span> <span class="c1">#单击事件
+</span>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tree</span><span class="p">.</span><span class="n">selection</span><span class="p">():</span>
+        <span class="n">item_text</span> <span class="o">=</span> <span class="n">tree</span><span class="p">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="s">"values"</span><span class="p">)</span>
+        <span class="n">t1</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'1.0'</span><span class="p">,</span> <span class="s">"end"</span><span class="p">)</span> <span class="c1">#把text组件中的内容全部删掉，因为t1这个组件只起到显示功能，如果我换了下一个待办，应该只显示新待办的详细信息
+</span>        <span class="k">for</span> <span class="n">data3</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data4</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data3</span><span class="p">][</span><span class="s">"details"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data3</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">item_text</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">t1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"end"</span><span class="p">,</span><span class="n">data4</span><span class="p">)</span> <span class="c1">#插入详细数据
+</span>
+<span class="n">tree</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">'&lt;ButtonRelease-1&gt;'</span><span class="p">,</span> <span class="n">treeviewClick</span><span class="p">)</span> <span class="c1">#把功能绑定给表格
+</span>
+<span class="c1">#显示详细信息组件
+</span><span class="n">f1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">tab1</span><span class="p">)</span>
+<span class="n">f1</span><span class="p">.</span><span class="n">pack</span><span class="p">()</span>
+<span class="n">l3</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"点击表格查看事件详情："</span><span class="p">)</span>
+<span class="n">l3</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Text</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">t1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+#待办管理页
+</span><span class="n">l1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"待办名称："</span><span class="p">)</span>
+<span class="n">l1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>你现在还<strong>不需要</strong>对每一行代码都完全理解，因为很多程序逻辑见的写的多了，自然而然就能理解了。所以有遇到看不懂的就理解个大概即可。</p>
+
+<p>这几行代码把隐藏在数据文件中没有显示在表格里的详细信息显示出来了。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="..\images\2021-01-05-event-management\3-7.png" alt="img" /></p>
+
+<h3 id="8添加删除功能">8.添加删除功能</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="c1">#原有内容
+</span><span class="n">b1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"添加待办"</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">get_data</span><span class="p">)</span>
+<span class="n">b1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">columnspan</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span>
+<span class="c1">#添加文字提示的组件
+</span><span class="n">l5</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">l5</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">l4</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"请输入编号（表格第一列）:"</span><span class="p">)</span>
+<span class="n">l4</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">e4</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">e4</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#修改数据文件
+</span><span class="k">def</span> <span class="nf">delete_data</span><span class="p">():</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">e4</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#用户输入的数据索引，也就是待办的唯一编号
+</span>    <span class="n">state3</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">order</span><span class="p">][</span><span class="s">"state"</span><span class="p">]</span> 
+    <span class="k">if</span> <span class="n">state3</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span> <span class="c1">#如果原数据的状态是true也就是在表格中显示的话
+</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data.json"</span><span class="p">,</span><span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">load_f</span><span class="p">:</span>
+            <span class="n">load_dict</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_f</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">load_dict</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">load_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"state"</span><span class="p">])</span>
+                    <span class="n">load_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"state"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1">#把这个控制是否显示的值改为false，使其在表格中消失。
+</span>                    
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data.json"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">dump_f</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">load_dict</span><span class="p">,</span><span class="n">dump_f</span><span class="p">)</span>
+
+<span class="n">b2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"删除待办"</span><span class="p">,</span><span class="n">command</span><span class="o">=</span><span class="n">delete_data</span><span class="p">)</span>
+<span class="n">b2</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">columnspan</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="c1">#原有内容
+#待办管理页
+</span><span class="n">l1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"待办名称："</span><span class="p">)</span>
+<span class="n">l1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>终于到了删除功能，这个与前面数据表的设计有很大的关系。我是通过给每个待办添加一个是否显示的属性，来实现删除效果的。也就是说，每一条待办即使你点击删除后也不会真正删除，而只是隐藏。</p>
+
+<p>这么做有几个考虑，一是如果一不小心手抖删掉了一个不该删的数据，还可以很轻松的找回，只要去数据文件里把是否显示的属性更改一下即可。二是在年终如果想要统计自己这一年做了什么事情的话，可以很轻松的查看，而不是完成一条删一条，到年终一条也不剩了<del>剩下的都是咕咕咕的ddl</del>。</p>
+
+<p><br /></p>
+
+<p>那么在实现的时候，首先要修改数据文件，然后再去在插入表格前判断一下这个数据是已经被“删除”掉了还是可以正常显示。这个功能就完成了。</p>
+
+<p>判断功能在之前插入表格时就已经写上了，可以回到第六节查看。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="..\images\2021-01-05-event-management\3-8.png" alt="img" /></p>
+
+<p>可以看到，这里标号为4的待办被删除掉了。你也可以试一试删除其他编号的数据。</p>
+
+<h3 id="9完善插入ddl功能1">9.完善插入ddl功能1</h3>
+
+<p><strong>你将看到一段巨长无比的代码，从datetime = calendar.datetime.datetime开始你完全不需要看懂，直接复制即可</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#原有内容
+#导入库
+</span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="n">tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="o">---</span>
+<span class="c1">#新增内容
+</span><span class="kn">import</span> <span class="nn">calendar</span> <span class="c1">#新增日历库
+</span><span class="kn">import</span> <span class="nn">tkinter.font</span> <span class="k">as</span> <span class="n">tkFont</span> <span class="c1">#新增字体库
+</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span>
+<span class="n">timedelta</span> <span class="o">=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">timedelta</span>
+
+<span class="k">class</span> <span class="nc">Calendar</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Toplevel</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">withdraw</span><span class="p">()</span>
+        <span class="n">fwday</span> <span class="o">=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">SUNDAY</span>
+
+        <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">year</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">month</span>
+        <span class="n">locale</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">sel_bg</span> <span class="o">=</span> <span class="s">'#ecffc4'</span>
+        <span class="n">sel_fg</span> <span class="o">=</span> <span class="s">'#05640e'</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># 设置为未选中日期
+</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">)</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">_cal</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">__get_calendar</span><span class="p">(</span><span class="n">locale</span><span class="p">,</span> <span class="n">fwday</span><span class="p">)</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">__setup_styles</span><span class="p">()</span>       <span class="c1"># 创建自定义样式
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">__place_widgets</span><span class="p">()</span>      <span class="c1"># pack/grid 小部件
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">__config_calendar</span><span class="p">()</span>    <span class="c1"># 调整日历列和安装标记
+</span>        <span class="c1"># 配置画布和正确的绑定，以选择日期。
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">__setup_selection</span><span class="p">(</span><span class="n">sel_bg</span><span class="p">,</span> <span class="n">sel_fg</span><span class="p">)</span>
+
+        <span class="c1"># 存储项ID，用于稍后插入。
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="s">'end'</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s">''</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+
+        <span class="c1"># 在当前空日历中插入日期
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">()</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="s">'both'</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">overrideredirect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">update_idletasks</span><span class="p">()</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">winfo_reqwidth</span><span class="p">(),</span> <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">winfo_reqheight</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">point</span> <span class="ow">and</span> <span class="n">position</span><span class="p">:</span>
+            <span class="k">if</span>   <span class="n">position</span> <span class="o">==</span> <span class="s">'ur'</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">height</span>
+            <span class="k">elif</span> <span class="n">position</span> <span class="o">==</span> <span class="s">'lr'</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">position</span> <span class="o">==</span> <span class="s">'ul'</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">height</span>
+            <span class="k">elif</span> <span class="n">position</span> <span class="o">==</span> <span class="s">'ll'</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span> <span class="o">-</span> <span class="n">width</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">winfo_screenheight</span><span class="p">()</span> <span class="o">-</span> <span class="n">height</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">'%dx%d+%d+%d'</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="c1">#窗口位置居中
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">after</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_main_judge</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">deiconify</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">focus_set</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">wait_window</span><span class="p">()</span> <span class="c1">#这里应该使用wait_window挂起窗口，如果使用mainloop,可能会导致主程序很多错误
+</span>
+    <span class="k">def</span> <span class="nf">__get_calendar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">locale</span><span class="p">,</span> <span class="n">fwday</span><span class="p">):</span>
+        <span class="c1"># 实例化适当的日历类
+</span>        <span class="k">if</span> <span class="n">locale</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">calendar</span><span class="p">.</span><span class="n">TextCalendar</span><span class="p">(</span><span class="n">fwday</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">calendar</span><span class="p">.</span><span class="n">LocaleTextCalendar</span><span class="p">(</span><span class="n">fwday</span><span class="p">,</span> <span class="n">locale</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">(</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'month'</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="s">"attribute '%s' is not writeable"</span> <span class="o">%</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s">'selectbackground'</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">[</span><span class="s">'background'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s">'selectforeground'</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">itemconfigure</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">.</span><span class="n">__setitem__</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">(</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'month'</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s">'selectbackground'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">[</span><span class="s">'background'</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">item</span> <span class="o">==</span> <span class="s">'selectforeground'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">itemcget</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="s">'fill'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">tclobjs_to_py</span><span class="p">({</span><span class="n">item</span><span class="p">:</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Frame</span><span class="p">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">item</span><span class="p">)})</span>
+            <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setup_styles</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="c1"># 自定义TTK风格
+</span>        <span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Style</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">)</span>
+        <span class="n">arrow_layout</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">dir</span><span class="p">:</span> <span class="p">(</span>
+            <span class="p">[(</span><span class="s">'Button.focus'</span><span class="p">,</span> <span class="p">{</span><span class="s">'children'</span><span class="p">:</span> <span class="p">[(</span><span class="s">'Button.%sarrow'</span> <span class="o">%</span> <span class="nb">dir</span><span class="p">,</span> <span class="bp">None</span><span class="p">)]})]</span>
+        <span class="p">)</span>
+        <span class="n">style</span><span class="p">.</span><span class="n">layout</span><span class="p">(</span><span class="s">'L.TButton'</span><span class="p">,</span> <span class="n">arrow_layout</span><span class="p">(</span><span class="s">'left'</span><span class="p">))</span>
+        <span class="n">style</span><span class="p">.</span><span class="n">layout</span><span class="p">(</span><span class="s">'R.TButton'</span><span class="p">,</span> <span class="n">arrow_layout</span><span class="p">(</span><span class="s">'right'</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__place_widgets</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="c1"># 标头框架及其小部件
+</span>        <span class="n">Input_judgment_num</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">register</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">Input_judgment</span><span class="p">)</span>  <span class="c1"># 需要将函数包装一下，必要的
+</span>        <span class="n">hframe</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">)</span>
+        <span class="n">gframe</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">)</span>
+        <span class="n">bframe</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">)</span>
+        <span class="n">hframe</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s">'top'</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s">'center'</span><span class="p">)</span>
+        <span class="n">gframe</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">bframe</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s">'bottom'</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">lbtn</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">'L.TButton'</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">_prev_month</span><span class="p">)</span>
+        <span class="n">lbtn</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="n">rbtn</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">'R.TButton'</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">_next_month</span><span class="p">)</span>
+        <span class="n">rbtn</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">year</span><span class="p">,</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">year</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="n">validate</span> <span class="o">=</span> <span class="s">'key'</span><span class="p">,</span> <span class="n">validatecommand</span> <span class="o">=</span> <span class="p">(</span><span class="n">Input_judgment_num</span><span class="p">,</span> <span class="s">'%P'</span><span class="p">))</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="n">current</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">'&lt;KeyPress&gt;'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span><span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">"&lt;&lt;ComboboxSelected&gt;&gt;"</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">)</span>
+        <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">'年'</span><span class="p">,</span> <span class="n">justify</span> <span class="o">=</span> <span class="s">'left'</span><span class="p">).</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">'%02d'</span> <span class="o">%</span> <span class="n">month</span> <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">)],</span> <span class="n">state</span> <span class="o">=</span> <span class="s">'readonly'</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="n">current</span><span class="p">(</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">"&lt;&lt;ComboboxSelected&gt;&gt;"</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">)</span>
+        <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">hframe</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">'月'</span><span class="p">,</span> <span class="n">justify</span> <span class="o">=</span> <span class="s">'left'</span><span class="p">).</span><span class="n">grid</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">hframe</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># 日历部件
+</span>        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Treeview</span><span class="p">(</span><span class="n">gframe</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> <span class="n">selectmode</span><span class="o">=</span><span class="s">'none'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s">'both'</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s">'bottom'</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">ttk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">bframe</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"确 定"</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">s</span><span class="p">.</span><span class="n">_exit</span><span class="p">(</span><span class="bp">True</span><span class="p">)).</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span> <span class="o">=</span> <span class="s">'ns'</span><span class="p">,</span> <span class="n">padx</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">ttk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">bframe</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"取 消"</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_exit</span><span class="p">).</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span> <span class="o">=</span> <span class="s">'ne'</span><span class="p">,</span> <span class="n">padx</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        
+        
+        <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="s">'#565656'</span><span class="p">).</span><span class="n">place</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rely</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relheigh</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">200</span><span class="p">)</span>
+        <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="s">'#565656'</span><span class="p">).</span><span class="n">place</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rely</span> <span class="o">=</span> <span class="mi">198</span><span class="o">/</span><span class="mi">200</span><span class="p">,</span> <span class="n">relwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relheigh</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">200</span><span class="p">)</span>
+        <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="s">'#565656'</span><span class="p">).</span><span class="n">place</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rely</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relwidth</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">200</span><span class="p">,</span> <span class="n">relheigh</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">G_Frame</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="s">'#565656'</span><span class="p">).</span><span class="n">place</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relx</span> <span class="o">=</span> <span class="mi">198</span><span class="o">/</span><span class="mi">200</span><span class="p">,</span> <span class="n">rely</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">relwidth</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="mi">200</span><span class="p">,</span> <span class="n">relheigh</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__config_calendar</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="c1"># cols = s._cal.formatweekheader(3).split()
+</span>        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s">'日'</span><span class="p">,</span><span class="s">'一'</span><span class="p">,</span><span class="s">'二'</span><span class="p">,</span><span class="s">'三'</span><span class="p">,</span><span class="s">'四'</span><span class="p">,</span><span class="s">'五'</span><span class="p">,</span><span class="s">'六'</span><span class="p">]</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">[</span><span class="s">'columns'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cols</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s">'header'</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s">'grey90'</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="s">'end'</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s">'header'</span><span class="p">)</span>
+        <span class="c1"># 调整其列宽
+</span>        <span class="n">font</span> <span class="o">=</span> <span class="n">tkFont</span><span class="p">.</span><span class="n">Font</span><span class="p">()</span>
+        <span class="n">maxwidth</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">font</span><span class="p">.</span><span class="n">measure</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">column</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">maxwidth</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="n">maxwidth</span><span class="p">,</span>
+                <span class="n">anchor</span><span class="o">=</span><span class="s">'center'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setup_selection</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sel_bg</span><span class="p">,</span> <span class="n">sel_fg</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__canvas_forget</span><span class="p">(</span><span class="n">evt</span><span class="p">):</span>
+            <span class="n">canvas</span><span class="p">.</span><span class="n">place_forget</span><span class="p">()</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">_font</span> <span class="o">=</span> <span class="n">tkFont</span><span class="p">.</span><span class="n">Font</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span> <span class="o">=</span> <span class="n">canvas</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Canvas</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">sel_bg</span><span class="p">,</span> <span class="n">borderwidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">.</span><span class="n">create_text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">sel_fg</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s">'w'</span><span class="p">)</span>
+
+        <span class="n">canvas</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">'&lt;Button-1&gt;'</span><span class="p">,</span> <span class="n">__canvas_forget</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">'&lt;Configure&gt;'</span><span class="p">,</span> <span class="n">__canvas_forget</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">'&lt;Button-1&gt;'</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_pressed</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_calendar</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span>
+
+        <span class="c1"># update header text (Month, YEAR)
+</span>        <span class="n">header</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_cal</span><span class="p">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># 更新日历显示的日期
+</span>        <span class="n">cal</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_cal</span><span class="p">.</span><span class="n">monthdayscalendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_items</span><span class="p">):</span>
+            <span class="n">week</span> <span class="o">=</span> <span class="n">cal</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span> <span class="k">if</span> <span class="n">indx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="n">fmt_week</span> <span class="o">=</span> <span class="p">[(</span><span class="s">'%02d'</span> <span class="o">%</span> <span class="n">day</span><span class="p">)</span> <span class="k">if</span> <span class="n">day</span> <span class="k">else</span> <span class="s">''</span> <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">week</span><span class="p">]</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">fmt_week</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_show_select</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+        <span class="s">"""为新的选择配置画布。"""</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">bbox</span>
+
+        <span class="n">textw</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_font</span><span class="p">.</span><span class="n">measure</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">canvas</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span>
+        <span class="n">canvas</span><span class="p">.</span><span class="n">configure</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="p">.</span><span class="n">coords</span><span class="p">(</span><span class="n">canvas</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span> <span class="o">-</span> <span class="n">textw</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="p">.</span><span class="n">itemconfigure</span><span class="p">(</span><span class="n">canvas</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="p">.</span><span class="n">place</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_pressed</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">evt</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">widget</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""在日历的某个地方点击。"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">widget</span> <span class="o">=</span> <span class="n">evt</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">evt</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">evt</span><span class="p">.</span><span class="n">widget</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">identify_row</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">identify_column</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">column</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">s</span><span class="p">.</span><span class="n">_items</span><span class="p">:</span>
+            <span class="c1"># 在工作日行中单击或仅在列外单击。
+</span>            <span class="k">return</span>
+
+        <span class="n">item_values</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="p">)[</span><span class="s">'values'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_values</span><span class="p">):</span> <span class="c1"># 这个月的行是空的。
+</span>            <span class="k">return</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">item_values</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span> <span class="c1"># 日期为空
+</span>            <span class="k">return</span>
+
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">bbox</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bbox</span><span class="p">:</span> <span class="c1"># 日历尚不可见
+</span>            <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">after</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="k">lambda</span> <span class="p">:</span> <span class="n">s</span><span class="p">.</span><span class="n">_pressed</span><span class="p">(</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="p">,</span> <span class="n">widget</span> <span class="o">=</span> <span class="n">widget</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="c1"># 更新，然后显示选择
+</span>        <span class="n">text</span> <span class="o">=</span> <span class="s">'%02d'</span> <span class="o">%</span> <span class="n">text</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_show_select</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_prev_month</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="s">"""更新日历以显示前一个月。"""</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">place_forget</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_next_month</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="s">"""更新日历以显示下一个月。"""</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">place_forget</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span>
+            <span class="n">days</span><span class="o">=</span><span class="n">calendar</span><span class="p">.</span><span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">event</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""刷新界面"""</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">and</span> <span class="n">event</span><span class="p">.</span><span class="n">keysym</span> <span class="o">!=</span> <span class="s">'Return'</span><span class="p">:</span> <span class="k">return</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">CB_year</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">CB_month</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">&gt;</span> <span class="mi">9999</span><span class="p">:</span> <span class="k">return</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_canvas</span><span class="p">.</span><span class="n">place_forget</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">_build_calendar</span><span class="p">()</span> <span class="c1"># 重建日历
+</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">year</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">==</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">month</span><span class="p">:</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">day</span>
+            <span class="k">for</span> <span class="n">_item</span><span class="p">,</span> <span class="n">day_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_cal</span><span class="p">.</span><span class="n">monthdayscalendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">day_list</span><span class="p">:</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="s">'I00'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">_item</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="n">column</span> <span class="o">=</span> <span class="s">'#'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">day_list</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="n">day</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">after</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="k">lambda</span> <span class="p">:</span><span class="n">s</span><span class="p">.</span><span class="n">_pressed</span><span class="p">(</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="p">,</span> <span class="n">widget</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_calendar</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_exit</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">confirm</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="s">"""退出窗口"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">confirm</span><span class="p">:</span> <span class="n">s</span><span class="p">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_main_judge</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="s">"""判断窗口是否在最顶层"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1">#s.master 为 TK 窗口
+</span>            <span class="c1">#if not s.master.focus_displayof(): s._exit()
+</span>            <span class="c1">#else: s.master.after(10, s._main_judge)
+</span>
+            <span class="c1">#s.master 为 toplevel 窗口
+</span>            <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">focus_displayof</span><span class="p">()</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="s">'toplevel'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">focus_displayof</span><span class="p">()):</span> <span class="n">s</span><span class="p">.</span><span class="n">_exit</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">after</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_main_judge</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">master</span><span class="p">.</span><span class="n">after</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_main_judge</span><span class="p">)</span>
+
+        <span class="c1">#s.master.tk_focusFollowsMouse() # 焦点跟随鼠标
+</span>
+    <span class="k">def</span> <span class="nf">selection</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="s">"""返回表示当前选定日期的日期时间。"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="p">.</span><span class="n">_selection</span><span class="p">:</span> <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">year</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_date</span><span class="p">.</span><span class="n">month</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_selection</span><span class="p">[</span><span class="mi">0</span><span class="p">])))[:</span><span class="mi">10</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">Input_judgment</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="s">"""输入判断"""</span>
+        <span class="c1"># 如果不加上==""的话，就会发现删不完。总会剩下一个数字
+</span>        <span class="k">if</span> <span class="n">content</span><span class="p">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">or</span> <span class="n">content</span> <span class="o">==</span> <span class="s">""</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">window</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'日程管理'</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">"400x300"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>如你所见，这里直接新增了大概250行代码，但你不需要知道他们在干什么。我也是直接复制的，来源是<a href="https://blog.csdn.net/wodeyan001/article/details/86703034">这个大神的博客</a>。我能知道他在大概做什么，也没有花时间完全看懂。你可以把它们理解为这些代码相当于写了一个库，你可以从里面来调用一些内容。</p>
+
+<p><br /></p>
+
+<p>写程序有时候其实就是在ctrl cv，见得多了就懂怎么写了。别人的东西可以为我所用，我就直接拿过来用，这在学习编程时并不是什么可耻的想法，当然前提是你所抄的那个人是把代码公开出来的，而不是你去剽窃。很多程序员都会把自己写的东西公开给大家，供后人学习，这也是互联网开源精神。也是我在这里写这么长的文章给大家看的根本原因<del>，虽然也为了分吧</del>。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p>这里不会输出任何东西，你只要把它们复制进去即可。</p>
+
+<h3 id="10完善插入ddl功能2">10.完善插入ddl功能2</h3>
+
+<p>由于前面第九节的代码实在是太长了，我就把剩下的代码分到了这个里面。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="c1">#原有内容
+#详细信息输入框
+</span><span class="n">e2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">)</span>
+<span class="n">e2</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#修改内容，这里原先有一个手动输入日期的ddl输入框
+</span>
+<span class="c1">#ddl输入框
+</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">window</span><span class="p">.</span><span class="n">winfo_screenwidth</span><span class="p">())</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">window</span><span class="p">.</span><span class="n">winfo_screenheight</span><span class="p">())</span><span class="o">/</span><span class="mi">2</span> <span class="c1">#无需掌握
+</span>
+<span class="n">date_str</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">StringVar</span><span class="p">()</span> <span class="c1">#定义一个字符串变量
+</span><span class="n">date</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="n">date_str</span><span class="p">)</span> <span class="c1">#放入一个显示框
+</span><span class="n">date</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+
+<span class="c1">#这些代码，你也不需要明白每一句的意思，这是一种简写方式
+</span><span class="n">date_str_gain</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">[</span>   
+    <span class="n">date_str</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Calendar</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s">'ur'</span><span class="p">).</span><span class="n">selection</span><span class="p">()]</span> 
+    <span class="k">if</span> <span class="n">date</span><span class="p">]</span>
+
+<span class="c1">#简写方式
+</span><span class="n">tk</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">'选择ddl'</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">date_str_gain</span><span class="p">).</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="o">---</span>
+<span class="c1">#原有内容
+#待办管理页
+</span><span class="n">l1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Label</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">"待办名称："</span><span class="p">)</span>
+<span class="n">l1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>这里，替换了原先的ddl选择方式，而用了弹出框的方式来选择日期，更加易于使用。</p>
+
+<p><strong>到这里，这篇教程的代码部分就结束了！</strong></p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="..\images\2021-01-05-event-management\3-10.png" alt="img" /></p>
+
+<h2 id="四总结">四、总结</h2>
+
+<p>这篇文章是我第一次写教程，如果你能看懂的话，那您可能真的是理解能力超群。</p>
+
+<p>如果喜欢的话，那就自己试试。如果嫌丑的话，<del>你自己写呗</del>也没什么办法，毕竟tkinter并不适于写GUI界面，如果想要它变得好看的话，可以学习其他的库，或者网页前端。不过tkinter永远是最简单的那个。如果遇到问题的话，先检查一下有没有少复制几行代码，如果确认没有的话就请评论告诉我，<del>我也不保证一定有时间来改</del>。</p>
+
+<p>就写这么多了，我是Mr.Zhang。</p>
+
+
+  </div>
+
+
+  
+    
+<h4 align="left">「留言」：</h4>    
+<div id="comments"></div>
+
+<script>
+    new Valine({
+        av: AV,
+        el: '#comments',
+        app_id: 'AnlQLDmNdVeGBc104glGHnty-gzGzoHsz',
+        app_key: '0xWfmArRQhGCa6CpoTp6aMU3',
+        placeholder:'Just go go',
+    });
+</script>
+  
+</article>
+
+<div class="pagination">
+  
+    <span class="prev" >
+      <a href="http://localhost:4000/my-blog/about-unity/">
+        ← 上一篇
+      </a>
+    </span>
+  
+  
+</div>
+<div class="gittalk">
+  <!--
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+<script type="text/javascript" src="/assets/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+-->
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<!-- or -->
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>     
+
+</head>
+<script type="text/javascript">
+
+    var gitalk = new Gitalk({
+ 
+    // gitalk的主要参数
+        clientID: '93801c653d5f320abe0e',
+        clientSecret: '5db4258ae956f6967df7121297a11fee953be5e9',
+        repo: 'https://david-zhang-test.github.io/my-blog/',
+        owner: 'david-zhang-test',
+        admin: ['david-zhang-test'],
+        id: location.pathname,
+        distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+</script>
+
+</div>
+    </div>
+
+    <!--
+-->
+
+
+  </body>
+
+  <div class="wrapper-footer-mobile">
+    <footer class="footer">
+      <!-- Refer to https://codepen.io/ruandre/pen/howFi -->
+<ul class="svg-icon">
+
+  
+  
+  
+
+  
+
+  
+  <li><a href="mailto:david_zhang1211@qq.com" class="icon-8 email" title="Email"><svg viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg><!--[if lt IE 9]><em>Email</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+  <li><a href="https://github.com/david-zhang-test" class="icon-13 github" title="GitHub"><svg viewBox="0 0 512 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg><!--[if lt IE 9]><em>GitHub</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+
+  
+  <li><a href="/my-blog/feed.xml" class="icon-21 rss" title="RSS"><svg viewBox="0 0 512 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"/></svg><!--[if lt IE 9]><em>RSS</em><![endif]--></a></li>
+  
+
+  
+
+  
+
+  
+
+  
+
+</ul>
+
+
+
+<p>© 2020 Mr.Zhang All Rights Reserved</p>
+
+    </footer>
+
+
+</html>

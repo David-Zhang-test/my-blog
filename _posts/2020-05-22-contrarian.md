@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 聊聊杠精
+title: 	
 date: 2020-05-22
 Author: Mr.Zhang
 categories: thoughts

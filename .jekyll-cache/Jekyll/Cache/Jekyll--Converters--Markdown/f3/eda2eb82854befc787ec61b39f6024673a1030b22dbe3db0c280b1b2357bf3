@@ -1,0 +1,113 @@
+I"!<p><br /></p>
+
+<h2 id="一项目准备">一、项目准备</h2>
+
+<p><strong>说明！必看！</strong></p>
+
+<p><strong>这篇文章是TechniColor俱乐部高级组的项目教程，是对项目的一个总结也帮助以后的同学学习</strong></p>
+
+<p>如果你不是我们俱乐部的成员但对日程管理感兴趣的话，也可以看这个教程，感谢支持</p>
+
+<p>闲言少叙，我们进入正题：</p>
+
+<p>日程管理是每个人都需要做的事情，不论是用好脑子还是用烂笔头抑或是程序都可以实现。程序的优点在于它很清晰同时也易于进行统计，还可以锻炼下写python的能力，<del>这才是主要目的</del>。</p>
+
+<p>在开始敲代码之前，我们需要先看一下自己需要做什么。为了更好得整理思路，我选择使用思维导图的方式。</p>
+
+<p><br /></p>
+
+<p><img src="../images/2021-01-05-event-management/mindmap.png" alt="img" /></p>
+
+<p><br /></p>
+
+<p><strong>在确定好我们需要做什么之后，就可以着手学习敲代码了！</strong></p>
+
+<h2 id="二必备知识">二、必备知识：</h2>
+
+<h3 id="1如果你只想了解程序逻辑你可以选择跳过这部分知识直接到第二部分">1.<strong>如果你只想了解程序逻辑</strong>，你可以选择跳过这部分知识，直接到第二部分</h3>
+
+<h3 id="2python的安装与卸载">2.python的安装<del>与卸载</del></h3>
+
+<p>请看<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1016959856222624">这篇文章</a></p>
+
+<h3 id="3python的基础知识">3.python的基础知识</h3>
+
+<p>你需要掌握python的基本语法，包括但不限于数据类型，强制类型转换，运算符，变量，字符串，数组，字典，函数，文件读取，选择结构，循环结构等等</p>
+
+<p>如果你都不了解，<del>发现自己是个废物，建议马上关掉这篇文章</del>建议马上学习一下</p>
+
+<p>推荐使用的学习网站包括但不限于</p>
+
+<p><a href="https://www.runoob.com/python/python-tutorial.html">菜鸟教程</a>，<a href="https://www.liaoxuefeng.com/wiki/1016959663602400">廖雪峰python教程</a>，<a href="https://mofanpy.com/tutorials/python-basic/basic/">莫烦python基础教程</a>等等</p>
+
+<p>互联网时代学习编程很大程度上需要自学，丰富的在线资源为此提供了重要的支持。尽管如此，有老师教学大多数时候都是求之不得的事情，请同学们珍惜你的老师<del>和他们的头发</del>。</p>
+
+<h3 id="4tkinter的基本知识">4.tkinter的基本知识</h3>
+
+<p>这是python自带的一个图形化（GUI）库，你可以用它完成对用户的交互，你需要对它<strong>有一定的</strong>了解。</p>
+
+<p><strong>你可以</strong>通过<a href="https://www.runoob.com/python/python-gui-tkinter.html">这个网站</a>学习它的基本用法。</p>
+
+<p><strong>你也可以</strong>通过<a href="https://www.bilibili.com/video/BV1jW411Y7dL">这个视频</a>来了解如何使用tkinter。</p>
+
+<h2 id="三开始">三、开始</h2>
+
+<p><strong>你可以在<a href="https://github.com/David-Zhang-test/program_shareing">github</a>上找到本篇教程的全部代码，编号为3-小标题。例如“1.初始化一个tkinter窗口”的代码就在文件3-1中，如果你想白嫖代码的话，可以直接找到final文件夹，下载到本地即可。</strong></p>
+
+<p><strong>请一定注意查看注释</strong></p>
+
+<h3 id="1初始化一个tkinter窗口">1.初始化一个tkinter窗口</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#导入库
+</span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="n">tk</span>
+<span class="c1">#创建一个window实例
+</span><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">window</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'日程管理'</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">"400x300"</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>这些都是最基本的语法了。</p>
+
+<p>先导入tkinter库，然后创建一个window实例。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="../images/2021-01-05-event-management/3-1.png" alt="img" /></p>
+
+<h3 id="2按功能分为两个页面">2.按功能分为两个页面</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#导入库
+</span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="n">tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="c1">#创建一个window实例
+</span><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">window</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'日程管理'</span><span class="p">)</span>
+<span class="n">window</span><span class="p">.</span><span class="n">geometry</span><span class="p">(</span><span class="s">"400x300"</span><span class="p">)</span>
+<span class="c1">#分页
+</span><span class="n">nb</span> <span class="o">=</span> <span class="n">ttk</span><span class="p">.</span><span class="n">Notebook</span><span class="p">(</span><span class="n">window</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">260</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tab1</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab1</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s">"显示待办"</span><span class="p">)</span>
+<span class="n">tab2</span> <span class="o">=</span> <span class="n">tk</span><span class="p">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+<span class="n">nb</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">tab2</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"管理待办"</span><span class="p">)</span>
+
+<span class="n">window</span><span class="p">.</span><span class="n">mainloop</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>由于前面思维导图里把主要任务分为了显示和管理，所以这里把两个页面分开。</p>
+
+<p>先导入ttk库，然后创建两个Notebook实例，这样就把两个页面分开了。</p>
+
+<p>这里面用到了tkinter三种包装方式pack, grid, place中的grid，也是最常用的一种。有关这三种包装方式的教程可以查看<a href="https://blog.csdn.net/weixin_43118073/article/details/100077067?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.not_use_machine_learn_pai&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-2.not_use_machine_learn_pai">这个网站</a></p>
+
+<p>Frame也是tkinter的组件之一，也是一个布置组件的组件（老套娃了）。</p>
+
+<p><strong>运行效果：</strong></p>
+
+<p><img src="../images/2021-01-05-event-management/3-2.png" alt="img" /></p>
+
+<h3 id="3插入添加待办的组件">3.插入添加待办的组件</h3>
+
+<p>```python</p>
+:ET

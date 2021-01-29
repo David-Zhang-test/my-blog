@@ -14,10 +14,10 @@ description: 闲来聊天
 #
 
 # 你的博客logo图片URL，建议尺寸不超过300px × 300px
-avatar: https://david-zhang-test.github.io/my-blog/images/logo2.png
+avatar: https://davidzhangtest.gitee.io/my-blog/images/logo2.png
 
 # 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
-favicon: https://david-zhang-test.github.io/my-blog/images/logo1.png
+favicon: https://davidzhangtest.gitee.io/my-blog/images/logo1.png
 
 
 # 菜单中的按钮
@@ -105,12 +105,12 @@ version: v1.2.0
 # Jekyll 3 now only supports Kramdown for Markdown
 kramdown:
   # Use GitHub flavored markdown, including triple backtick fenced code blocks
-  input: GFM
+  # input: GFM
   # Jekyll 3 and GitHub Pages now only support rouge for syntax highlighting
   syntax_highlighter: rouge
-  syntax_highlighter_opts:
+  # syntax_highlighter_opts:
     # Use existing pygments syntax highlighting css
-    css_class: 'highlight'
+    # css_class: 'highlight'
 
 # Set the Sass partials directory, as we're using @imports
 sass:
